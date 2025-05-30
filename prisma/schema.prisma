@@ -14,14 +14,17 @@ model categorias {
   produtos       produtos[]
 }
 
-model enredecos {
-  endereco_id         Int        @id @unique(map: "endereco_id") @default(autoincrement())
-  endereco_logradouro String     @db.VarChar(100)
-  endereco_bairro     String     @db.VarChar(50)
-  endereco_cidade     String     @db.VarChar(50)
-  endereco_estado     String     @db.VarChar(50)
-  endereco_cep        String     @db.VarChar(10)
-  usuarios            usuarios[]
+model enderecos {
+  endereco_id         Int      @id @unique(map: "endereco_id") @default(autoincrement())
+  endereco_logradouro String   @db.VarChar(100)
+  endereco_bairro     String   @db.VarChar(50)
+  endereco_cidade     String   @db.VarChar(50)
+  endereco_estado     String   @db.VarChar(50)
+  endereco_cep        String   @db.VarChar(10)
+  usuario_id          Int
+  usuarios            usuarios @relation(fields: [usuario_id], references: [usuario_id], onUpdate: Restrict, map: "usuarios_fk6")
+
+  @@index([usuario_id], map: "usuarios_fk6")
 }
 
 model marcas {
@@ -46,14 +49,11 @@ model produtos {
 }
 
 model usuarios {
-  usuario_id       Int       @id @unique(map: "usuario_id") @default(autoincrement())
-  usuario_nome     String    @db.VarChar(100)
-  usuario_email    String    @unique(map: "usuario_email") @db.VarChar(100)
-  usuario_senha    String    @db.VarChar(255)
-  usuario_telefone String    @db.VarChar(20)
-  usuario_cpf      String    @db.VarChar(20)
-  endereco_id      Int
-  enredecos        enredecos @relation(fields: [endereco_id], references: [endereco_id], onUpdate: Restrict, map: "usuarios_fk6")
-
-  @@index([endereco_id], map: "usuarios_fk6")
+  usuario_id       Int    @id @unique(map: "usuario_id") @default(autoincrement())
+  usuario_nome     String @db.VarChar(100)
+  usuario_email    String @unique(map: "usuario_email") @db.VarChar(100)
+  usuario_senha    String @db.VarChar(255)
+  usuario_telefone String @db.VarChar(20)
+  usuario_cpf      String @db.VarChar(20)
+  enderecos        enderecos[]
 }

@@ -1,4 +1,7 @@
+const { PrismaClient } = require("../generated/prisma");
 const mysql = require("mysql2/promise");
+const prisma = new PrismaClient();
+
 
 async function executarSQL(comandoSql){
     const conexao = await mysql.createConnection({

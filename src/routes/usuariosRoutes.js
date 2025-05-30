@@ -1,3 +1,4 @@
+const { criarusuario } = require("../controller/usuariosController");
 const { executarSQL } = require("../services");
 
 const router = require("express").Router();
@@ -8,8 +9,8 @@ router.get("/", async (req, res) => {
 router.get("/:id", (req, res) => {
     res.send(`Busca o usuario com o id: ${req.params.id}`);
 });
-router.post("/", (req, res) => {
-    res.send("Cria um usuario");
+router.post("/", async (req, res) => {
+    res.send(await criarusuario(req.body));
 });
 router.put("/:id", (req, res) => {
     res.send(`Edita um usuario com o id: ${req.params.id}`);
