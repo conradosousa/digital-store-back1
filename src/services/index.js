@@ -18,4 +18,4 @@ async function executarSQL(comandoSql){
     return result;
 }
 
-module.exports = { executarSQL };
+module.exports = { executarSQL, prisma };
