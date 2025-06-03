@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const port = 8000;
 
 const { login } = require("./src/controller/usuariosController")
@@ -7,6 +8,7 @@ const usuariosRoutes = require("./src/routes/usuariosRoutes");
 const produtosRoutes = require("./src/routes/produtosRoutes");
 const { rotaProtegida } = require("./src/utils");
 
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
